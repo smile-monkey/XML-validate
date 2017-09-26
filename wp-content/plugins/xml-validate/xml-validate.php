@@ -3,7 +3,7 @@
  * Plugin Name: XML Validate
  * Version: 1.0.0
  * Plugin URI: https://github.com/smile-monkey/XML-validate
- * Description: 
+ * Description: This is a plugin to provide a page to upload an XML which is an electronic invoice for users to validate it. The following shortcode is used for XML Validation: [xml-validate]
  * Author: Web Expert
  * Author URI: https://github.com/smile-monkey/XML-validate
  * Tested up to: 
@@ -36,7 +36,29 @@ if (!class_exists(XML_VALIDATE)){
 		*/
 		function xml_validate_shortcode($content) {
 			$xml_form = $content;
-			$xml_form .= '';
+			$xml_form .= '<div class="page-header"><h1>XML Document Validation</h1></div>';
+			$xml_form .= '<form enctype="multipart/form-data" method="post">';
+			$xml_form .= '<div class="form-title">Select the XML file for validation and upload it</div>';
+			$xml_form .= '<div class="text-center" id="drag-drop-zone">
+	                        <div class="text-center" id="drag-drop-text">
+	                            <p>Drag and drop a file here</p>
+	                            <label class="form-inline browse-label">If you prefer you can also</label>
+	                            <span class="file-wrapper">
+								  <input type="file" name="photo" id="photo" />
+								  <span class="button">Browse...</span>
+								</span>
+	                        </div>
+	                        <div class="pull-right">
+			                    <button type="button" class="btn btn-default" onclick="javascript:$('."'vdx-result-line'".
+			                ').parent().remove()"><span class="text-muted">Clear</span></button>
+			                </div>
+                    	  </div>';
+			
+
+
+
+
+			$xml_form .= '</form>';
 			return $xml_form;
 		}		
 	}
@@ -52,5 +74,5 @@ if (isset( $_POST['download_btn'] ) ) {
     }
 }
 
-$xml_validate = new XML_VALIDATE();
+$xml_validation = new XML_VALIDATE();
 ?>

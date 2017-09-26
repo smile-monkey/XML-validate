@@ -1,0 +1,80 @@
+.page-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 3px solid #eee;
+}
+.form-title {
+    color: #31708f;
+    background-color: #d9edf7;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #9acfea;
+    border-radius: 4px;
+	text-shadow: 0 1px 0 rgba(255,255,255,.2);
+	background-repeat: repeat-x;
+	background-image: linear-gradient(to bottom,#d9edf7 0,#b9def0 100%);
+}
+#drag-drop-zone {
+    width: 100%;
+    margin-bottom: 20px;
+    border: dashed #999 3px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+}
+#drag-drop-text {
+    width: 100%;
+    flex: 0 0 auto;
+    align-self: center;
+    font-size: 18px;
+    color: #999;
+}
+.text-center {
+    text-align: center;
+}
+#drag-drop-zone .browse-label {
+    font-size: 14px;
+    font-weight: normal;
+    display: inline-grid;
+}
+#drag-drop-text p {
+	padding-bottom: 10px;
+}
+/*
+ * file button css
+ */
+.file-wrapper {
+  cursor: pointer;
+  display: inline-grid;
+  overflow: hidden;
+  position: relative;
+}
+.file-wrapper input {
+  cursor: pointer;
+  font-size: 100px;
+  filter: alpha(opacity=1);
+  -moz-opacity: 0.01;
+  opacity: 0.01;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.file-wrapper .button {
+  background: #337ab7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 5px;
+  padding: 3px 15px;
+}
+
+.pull-right {
+	position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
