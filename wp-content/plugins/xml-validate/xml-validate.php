@@ -67,26 +67,45 @@ if (!class_exists(XML_VALIDATE)){
 
 		function validation_xml() {
 		    $response = array();
-		    $xml_url = '';var_dump($_FILES);
+		    $xml_url = '';
 		    if (isset($_FILES['xml_file'])){
-		        $upload_dir="../wp-content/uploads/";
-		        $dirCreated=(!is_dir($upload_dir)) ? @mkdir($upload_dir, 0777):TRUE;
-		        
-		        $upload_dir.="xml/";
-		        $dirCreated=(!is_dir($upload_dir)) ? @mkdir($upload_dir, 0777):TRUE;
-		        
-		        $file_name = $_FILES['xml_file']['name'];
-					
-		        $filename = pathinfo($file_name, PATHINFO_FILENAME);
-		        $ext = pathinfo($file_name, PATHINFO_EXTENSION);			
-		        
-		        $save_name = time().'_'.$filename;
-		        $upload_file = $save_name.'.'.$ext;
-		        $upload_path = $upload_dir.$upload_file;
-		        // upload xml_file
-		        move_uploaded_file($_FILES['xml_file']['tmp_name'], $upload_path);
-		        $xml_url = $upload_path;
+				// session_start();
+				// Start the session
+				$url = 'https://api-cyprus.validex.net/api/validate';
+				//$url = "https://api.validex.net/validate/";
+				$headers = array('Content-Type: application/json','Authorization: apikey=39c70bcd75fa5020ed001dc9a28c22a0');
+				$filename = $_FILES['xml_file']['name'];
+				$filedata = $_FILES['xml_file']['tmp_name'];
+				$filesize = $_FILES['xml_file']['size'];
+				$fields = array("filedata" => "@$filedata", "filename" => $filename);
+				//$fields = array('filename' => '@' . $_FILES['xml_file']['tmp_name'][0]);
+				//$token = 'NfxoS9oGjA6MiArPtwg4aR3Cp4ygAbNA2uv6Gg4m';
+				 
+				$ch = curl_init();
+				$options = array(
+				        CURLOPT_URL => $url,
+				        CURLOPT_HEADER => true,
+				        CURLOPT_POST => 1,
+				        CURLOPT_HTTPHEADER => $headers,
+				        CURLOPT_POSTFIELDS => $fields,
+				        CURLOPT_INFILESIZE => $filesize,
+				        CURLOPT_RETURNTRANSFER => true
+				    ); // cURL options
+				curl_setopt_array($ch, $options);
+				$result = curl_exec($ch);
+				if(!curl_errno($ch))
+				{
+					$info = curl_getinfo($ch);
+					if ($info['http_code'] == 200)
+					$errmsg = "File uploaded successfully";
+				}else
+				{
+					$errmsg = curl_error($ch);
+				}
+				curl_close($ch);
+				var_dump($errmsg);exit;
 		    }
+
 		    if($xml_url) {
 		        $response['status'] = "success";
 		        $response['xml_url'] = $xml_url;
@@ -97,16 +116,6 @@ if (!class_exists(XML_VALIDATE)){
 			exit();
 		}
 	}
-}
-/**
- * 
- */
-if (isset( $_POST['download_btn'] ) ) {
-    try {
-
-    } catch (Exception $ex) {
-        echo "error";
-    }
 }
 
 $xml_validation = new XML_VALIDATE();
