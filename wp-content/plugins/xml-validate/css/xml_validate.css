@@ -16,12 +16,14 @@
 }
 #drag-drop-zone {
     width: 100%;
-    margin-bottom: 20px;
     border: dashed #999 3px;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
     height: 100px;
+    padding: 90px;
+    padding-top: 50px;
+    position: relative;
 }
 #drag-drop-text {
     width: 100%;
@@ -29,14 +31,17 @@
     align-self: center;
     font-size: 18px;
     color: #999;
+    position: relative;
 }
 .text-center {
     text-align: center;
 }
 #drag-drop-zone .browse-label {
-    font-size: 14px;
+	font-size: 14px;
     font-weight: normal;
     display: inline-grid;
+    position: absolute;
+    left: calc(50% + 60px);
 }
 #drag-drop-text p {
 	padding-bottom: 10px;
@@ -45,10 +50,11 @@
  * file button css
  */
 .file-wrapper {
-  cursor: pointer;
-  display: inline-grid;
-  overflow: hidden;
-  position: relative;
+    cursor: pointer;
+    display: inline-grid;
+    overflow: hidden;
+    position: absolute;
+    left: calc(50% - 50px);
 }
 .file-wrapper input {
   cursor: pointer;
@@ -61,10 +67,11 @@
   top: 0;
 }
 .file-wrapper .button {
-  background: #337ab7;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  background-color: #3ca2e0;
+  border-color: #2698dd;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
   color: #fff;
   cursor: pointer;
   display: inline-block;
@@ -72,9 +79,32 @@
   margin-right: 5px;
   padding: 3px 15px;
 }
+.clear_btn {
+    text-shadow: 0 1px 0 #fff;
+    padding: 3px 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
 
 .pull-right {
-	position: absolute;
-    bottom: 0px;
-    right: 0px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.validation_div {
+	position: relative;
+}
+.validation_btn {
+	color: #fff;
+    background-color: #3ca2e0;
+    border: 2px solid #2698dd;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 18px;
+    margin: 50px auto 20px 0px;
+    cursor: pointer;
+}
+.validation_result {
+	padding-top: 20px;
+	border-top: 3px solid #eee;
 }
