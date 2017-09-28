@@ -69,30 +69,46 @@ if (!class_exists(XML_VALIDATE)){
 		    $response = array();
 		    $xml_url = '';
 		    if (isset($_FILES['xml_file'])){
-				// session_start();
-				// Start the session
+
 				$url = 'https://api-cyprus.validex.net/api/validate';
-				//$url = "https://api.validex.net/validate/";
 				$headers = array('Content-Type: application/json','Authorization: apikey=39c70bcd75fa5020ed001dc9a28c22a0');
 				$filename = $_FILES['xml_file']['name'];
-				$filedata = $_FILES['xml_file']['tmp_name'];
+				$filepath = $_FILES['xml_file']['tmp_name'];
 				$filesize = $_FILES['xml_file']['size'];
-				$fields = array("filedata" => "@$filedata", "filename" => $filename);
-				//$fields = array('filename' => '@' . $_FILES['xml_file']['tmp_name'][0]);
-				//$token = 'NfxoS9oGjA6MiArPtwg4aR3Cp4ygAbNA2uv6Gg4m';
-				 
+
+				$contents = file_get_contents($filepath);
+				
+				$fileContents64 = base64_encode($contents);
+
+				// var_dump($fileContents64);exit;
+
 				$ch = curl_init();
-				$options = array(
-				        CURLOPT_URL => $url,
-				        CURLOPT_HEADER => true,
-				        CURLOPT_POST => 1,
-				        CURLOPT_HTTPHEADER => $headers,
-				        CURLOPT_POSTFIELDS => $fields,
-				        CURLOPT_INFILESIZE => $filesize,
-				        CURLOPT_RETURNTRANSFER => true
-				    ); // cURL options
-				curl_setopt_array($ch, $options);
-				$result = curl_exec($ch);
+
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+				curl_setopt($ch, CURLOPT_HEADER, FALSE);
+				curl_setopt($ch, CURLOPT_POST, TRUE);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, {
+					"userId:2",
+					"forced":{
+						"documentTypes":[
+						"doc/xml",
+						"doc/xml/ubl2",
+						"doc/xml/ubl2/inv",
+						"doc/xml/ubl2/inv/bii2",
+						"doc/xml/ubl2/inv/bii2/t10",
+						"doc/xml/ubl2/inv/bii2/t10/p05",
+						"doc/xml/ubl2/inv/bii2/t10/p05/peppol"
+						]
+				    },
+				    "filename": $filename,
+				    "fileContents": $contents,
+				    "fileContents64": $fileContents64
+				});
+
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+				$response = curl_exec($ch);
 				if(!curl_errno($ch))
 				{
 					$info = curl_getinfo($ch);
@@ -103,17 +119,17 @@ if (!class_exists(XML_VALIDATE)){
 					$errmsg = curl_error($ch);
 				}
 				curl_close($ch);
-				var_dump($errmsg);exit;
+				var_dump($response);exit;				
 		    }
 
-		    if($xml_url) {
-		        $response['status'] = "success";
-		        $response['xml_url'] = $xml_url;
-		    }else {
-		        $response['status'] = "fail";
-		    }
-		    echo json_encode($response);
-			exit();
+		 //    if($xml_url) {
+		 //        $response['status'] = "success";
+		 //        $response['xml_url'] = $xml_url;
+		 //    }else {
+		 //        $response['status'] = "fail";
+		 //    }
+		 //    echo json_encode($response);
+			// exit();
 		}
 	}
 }
