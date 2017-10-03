@@ -88,23 +88,23 @@ if (!class_exists(XML_VALIDATE)){
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 				curl_setopt($ch, CURLOPT_HEADER, FALSE);
 				curl_setopt($ch, CURLOPT_POST, TRUE);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, {
-					"userId:2",
-					"forced":{
-						"documentTypes":[
-						"doc/xml",
-						"doc/xml/ubl2",
-						"doc/xml/ubl2/inv",
-						"doc/xml/ubl2/inv/bii2",
-						"doc/xml/ubl2/inv/bii2/t10",
-						"doc/xml/ubl2/inv/bii2/t10/p05",
-						"doc/xml/ubl2/inv/bii2/t10/p05/peppol"
-						]
-				    },
-				    "filename": $filename,
-				    "fileContents": $contents,
-				    "fileContents64": $fileContents64
-				});
+				// curl_setopt($ch, CURLOPT_POSTFIELDS, {
+				// 	"userId:2",
+				// 	"forced":{
+				// 		"documentTypes":[
+				// 		"doc/xml",
+				// 		"doc/xml/ubl2",
+				// 		"doc/xml/ubl2/inv",
+				// 		"doc/xml/ubl2/inv/bii2",
+				// 		"doc/xml/ubl2/inv/bii2/t10",
+				// 		"doc/xml/ubl2/inv/bii2/t10/p05",
+				// 		"doc/xml/ubl2/inv/bii2/t10/p05/peppol"
+				// 		]
+				//     },
+				//     "filename": $filename,
+				//     "fileContents": $contents,
+				//     "fileContents64": $fileContents64
+				// });
 
 				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
